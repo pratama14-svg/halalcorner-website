@@ -21,6 +21,10 @@
       text-align: center;
       padding: 30px 10px;
     }
+    header img {
+      max-width: 160px;
+      margin-bottom: 20px;
+    }
     header h1 {
       color: #70b1a1;
       font-size: 2.5em;
@@ -87,6 +91,7 @@
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       max-width: 300px;
+      z-index: 999;
     }
     #cart h2 {
       font-size: 1.2em;
@@ -120,6 +125,7 @@
 </head>
 <body>
   <header>
+    <img src="Logo Our Website.png" alt="Halal Corner Logo" />
     <h1>Halal Corner</h1>
     <p>Makanan & bahan makanan halal – termasuk produk Korea dan Asia berkualitas</p>
   </header>
@@ -143,53 +149,4 @@
 
   <script>
     const products = [
-      { name: "Beras Premium Indonesia", price: 3200 },
-      { name: "Minyak Goreng Sawit", price: 2500 },
-      { name: "Mie Instan Halal KMF", price: 1200 },
-      { name: "Kecap Manis Halal", price: 2800 },
-      { name: "Sambal Botol Ekspor", price: 2000 },
-      { name: "Kerupuk Udang Tradisional", price: 1500 }
-    ];
-
-    const productList = document.getElementById("product-list");
-    const cartItems = document.getElementById("cart-items");
-    let cart = [];
-
-    function updateCart() {
-      cartItems.innerHTML = cart.map(item => `<p>${item.name} - ₩${item.price}</p>`).join("");
-    }
-
-    products.forEach(product => {
-      const div = document.createElement("div");
-      div.className = "product";
-      div.innerHTML = `
-        <img src="https://via.placeholder.com/250x200.png?text=${encodeURIComponent(product.name)}" alt="${product.name}">
-        <h3>${product.name}</h3>
-        <p>₩${product.price}</p>
-        <button class="add-to-cart">Tambah ke Keranjang</button>
-      `;
-      div.querySelector(".add-to-cart").addEventListener("click", () => {
-        cart.push(product);
-        updateCart();
-      });
-      productList.appendChild(div);
-    });
-
-    document.getElementById("checkout-form").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const name = document.getElementById("name").value;
-      const address = document.getElementById("address").value;
-      const phone = document.getElementById("phone").value;
-
-      let orderText = `Halo, saya ingin memesan produk berikut:\n`;
-      cart.forEach(item => {
-        orderText += `- ${item.name} - ₩${item.price}\n`;
-      });
-      orderText += `\nNama: ${name}\nAlamat: ${address}\nNo HP: ${phone}`;
-
-      const waLink = `https://wa.me/6281234567890?text=${encodeURIComponent(orderText)}`;
-      window.open(waLink, "_blank");
-    });
-  </script>
-</body>
-</html>
+      { name: "Beras Premium Indonesia
