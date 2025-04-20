@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Halal Corner</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Outfit', sans-serif;
+    }
+    body {
+      background-color: #fdfdfd;
+      color: #333;
+      padding: 20px;
+    }
+    header {
+      text-align: center;
+      padding: 30px 10px;
+    }
+    header h1 {
+      color: #70b1a1;
+      font-size: 2.5em;
+    }
+    header p {
+      color: #888;
+      font-size: 1.1em;
+      margin-top: 10px;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin: 40px 0;
+    }
+    .product {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      padding: 20px;
+      text-align: center;
+      transition: 0.3s;
+    }
+    .product:hover {
+      transform: translateY(-5px);
+    }
+    .product img {
+      width: 100%;
+      border-radius: 15px;
+    }
+    .product h3 {
+      margin: 15px 0 5px;
+      font-size: 1.2em;
+      color: #444;
+    }
+    .product p {
+      color: #888;
+      font-size: 0.95em;
+    }
+    .add-to-cart {
+      margin-top: 15px;
+      background: #70b1a1;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+    }
+    .add-to-cart:hover {
+      background: #5d968b;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.9em;
+      color: #aaa;
+      margin-top: 50px;
+    }
+    #cart {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 300px;
+    }
+    #cart h2 {
+      font-size: 1.2em;
+      margin-bottom: 10px;
+    }
+    #cart-items {
+      max-height: 150px;
+      overflow-y: auto;
+    }
+    #checkout-form {
+      margin-top: 15px;
+    }
+    #checkout-form input,
+    #checkout-form textarea {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    #checkout-form button {
+      background: #70b1a1;
+      color: white;
+      padding: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Halal Corner</h1>
+    <p>Makanan & bahan makanan halal – termasuk produk Korea dan Asia berkualitas</p>
+  </header>
+
+  <section class="products" id="product-list"></section>
+
+  <div id="cart">
+    <h2>Keranjang Belanja</h2>
+    <div id="cart-items"></div>
+    <form id="checkout-form">
+      <input type="text" id="name" placeholder="Nama lengkap" required />
+      <textarea id="address" rows="3" placeholder="Alamat lengkap" required></textarea>
+      <input type="tel" id="phone" placeholder="Nomor HP / WhatsApp" required />
+      <button type="submit">Checkout</button>
+    </form>
+  </div>
+
+  <footer>
+    &copy; 2025 Halal Corner. All rights reserved.
+  </footer>
+
+  <script>
+    const products = [
+      { name: "Beras Premium Indonesia", price: 3200 },
+      { name: "Minyak Goreng Sawit", price: 2500 },
+      { name: "Mie Instan Halal KMF", price: 1200 },
+      { name: "Kecap Manis Halal", price: 2800 },
+      { name: "Sambal Botol Ekspor", price: 2000 },
+      { name: "Kerupuk Udang Tradisional", price: 1500 }
+    ];
+
+    const productList = document.getElementById("product-list");
+    const cartItems = document.getElementById("cart-items");
+    let cart = [];
+
+    function updateCart() {
+      cartItems.innerHTML = cart.map(item => `<p>${item.name} - ₩${item.price}</p>`).join("");
+    }
+
+    products.forEach(product => {
+      const div = document.createElement("div");
+      div.className = "product";
+      div.innerHTML = `
+        <img src="https://via.placeholder.com/250x200.png?text=${encodeURIComponent(product.name)}" alt="${product.name}">
+        <h3>${product.name}</h3>
+        <p>₩${product.price}</p>
+        <button class="add-to-cart">Tambah ke Keranjang</button>
+      `;
+      div.querySelector(".add-to-cart").addEventListener("click", () => {
+        cart.push(product);
+        updateCart();
+      });
+      productList.appendChild(div);
+    });
+
+    document.getElementById("checkout-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const address = document.getElementById("address").value;
+      const phone = document.getElementById("phone").value;
+
+      let orderText = `Halo, saya ingin memesan produk berikut:\n`;
+      cart.forEach(item => {
+        orderText += `- ${item.name} - ₩${item.price}\n`;
+      });
+      orderText += `\nNama: ${name}\nAlamat: ${address}\nNo HP: ${phone}`;
+
+      const waLink = `https://wa.me/6281234567890?text=${encodeURIComponent(orderText)}`;
+      window.open(waLink, "_blank");
+    });
+  </script>
+</body>
+</html>
