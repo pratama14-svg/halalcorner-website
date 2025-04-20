@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halal Corner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header {
+            background-color: #2b9348;
+            color: white;
+            padding: 1em 0;
+        }
+        nav {
+            margin-top: 1em;
+        }
+        nav button {
+            margin: 0 10px;
+            padding: 10px 15px;
+            border: none;
+            background-color: #55a630;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .logo {
+            width: 120px;
+            margin-top: 10px;
+        }
+        .tagline {
+            font-size: 1.5em;
+            margin: 1em 0;
+        }
+        .contact-buttons a {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 15px;
+            background-color: #007f5f;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        footer {
+            margin-top: 2em;
+            font-size: 0.9em;
+            color: #777;
+        }
+    </style>
+    <script>
+        function changeLang(lang) {
+            const text = {
+                en: {
+                    tagline: "Your Halal Choice",
+                    whatsapp: "Contact via WhatsApp",
+                    kakao: "Contact via KakaoTalk"
+                },
+                id: {
+                    tagline: "Pilihan Halal Anda",
+                    whatsapp: "Hubungi via WhatsApp",
+                    kakao: "Hubungi via KakaoTalk"
+                },
+                kr: {
+                    tagline: "당신의 할랄 선택",
+                    whatsapp: "WhatsApp으로 문의하기",
+                    kakao: "카카오톡으로 문의하기"
+                }
+            };
+            document.getElementById("tagline").innerText = text[lang].tagline;
+            document.getElementById("waBtn").innerText = text[lang].whatsapp;
+            document.getElementById("kakaoBtn").innerText = text[lang].kakao;
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <img src="assets/logo.png" alt="Halal Corner Logo" class="logo">
+        <h1>Halal Corner</h1>
+        <div class="tagline" id="tagline">Your Halal Choice</div>
+        <nav>
+            <button onclick="changeLang('en')">🇬🇧 English</button>
+            <button onclick="changeLang('id')">🇮🇩 Indonesia</button>
+            <button onclick="changeLang('kr')">🇰🇷 한국어</button>
+        </nav>
+    </header>
+
+    <section class="contact-buttons">
+        <a href="https://wa.me/1234567890" id="waBtn" target="_blank">Contact via WhatsApp</a>
+        <a href="https://open.kakao.com/o/yourkakaolink" id="kakaoBtn" target="_blank">Contact via KakaoTalk</a>
+    </section>
+
+    <footer>
+        &copy; 2025 Halal Corner. All rights reserved.
+    </footer>
+</body>
+</html>
